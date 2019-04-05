@@ -66,7 +66,7 @@ class AddExpensePopup(QWidget):
         category = str(self.category.currentText())
 
         self.db.add_expense(amount, description, category, date)
-        #self.reset_add_expense_widgets()
+        self.reset_add_expense_widgets()
         # self.print_expense_data(amount, description, category, date)
         # print(type(date))
 

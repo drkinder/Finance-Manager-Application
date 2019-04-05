@@ -12,7 +12,7 @@ class DbHandler:
         initial_balance = self.get_balance()
 
         try:
-            new_balance = initial_balance + float(amount)
+            new_balance = round(initial_balance + float(amount), 2)
         except ValueError:
             new_balance = initial_balance
 
