@@ -59,10 +59,7 @@ class AddExpensePopup(QWidget):
     def add_expense(self):
         amount = self.amount.text()
         description = self.description.text()
-        if self.date.text() == "":
-            date = str(datetime.date.today())
-        else:
-            date = self.date.text()
+        date = self.get_date()
         category = str(self.category.currentText())
 
         if self.are_valid_entries(amount, date):
@@ -73,6 +70,11 @@ class AddExpensePopup(QWidget):
             print("INVALID ENTRIES")
         # self.print_expense_data(amount, description, category, date)
         # print(type(date))
+
+    def get_date(self):
+        if self.date.text() == "":
+            return str(datetime.date.today())
+        return self.date.text()
 
     def print_expense_data(self, amount, description, category, date):
         print(f"amount: {amount}")
