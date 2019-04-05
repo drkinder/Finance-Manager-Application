@@ -28,7 +28,7 @@ class AddExpensePopup(QWidget):
         self.description = QLineEdit(self)
         grid.addWidget(self.description, 1, 1)
 
-        date_title = QLabel('Date (mm-dd-yyyy)  ')
+        date_title = QLabel('Date (yyyy-mm-dd)  ')
         grid.addWidget(date_title, 2, 0)
         self.date = QLineEdit(self)
         self.date.setPlaceholderText(str(datetime.date.today()))
@@ -65,8 +65,12 @@ class AddExpensePopup(QWidget):
             date = self.date.text()
         category = str(self.category.currentText())
 
-        self.db.add_expense(amount, description, category, date)
-        self.reset_add_expense_widgets()
+        if self.are_valid_entries(amount, date):
+            self.db.add_expense(amount, description, category, date)
+            self.reset_add_expense_widgets()
+        else:
+            # ADD POPUP WARNING
+            print("INVALID ENTRIES")
         # self.print_expense_data(amount, description, category, date)
         # print(type(date))
 
@@ -75,6 +79,19 @@ class AddExpensePopup(QWidget):
         print(f"description: {description}")
         print(f"date: {date}")
         print(f"category: {category}")
+
+    def are_valid_entries(self, amount, date):
+        try:
+            float(amount)
+        except ValueError:
+            return False
+
+        try:
+            datetime.datetime.strptime(date, '"%Y-%m-%d"')
+        except ValueError:
+            return False
+
+        return True
 
     def reset_add_expense_widgets(self):
         """ Resets all widgets in AddExpensePopup window so another expense can be added."""
