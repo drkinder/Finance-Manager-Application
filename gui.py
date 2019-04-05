@@ -1,5 +1,6 @@
 import sys
-from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QMainWindow,
+import datetime
+from PyQt5.QtWidgets import (QWidget, QLabel, QComboBox, QMainWindow, QLineEdit,
                              QTextEdit, QGridLayout, QApplication, QPushButton)
 from db_handler import DbHandler
 
@@ -8,6 +9,78 @@ class AddExpensePopup(QWidget):
 
     def __init__(self):
         QWidget.__init__(self)
+
+        self.db = DbHandler()
+        self.initUI()
+
+    def initUI(self):
+
+        grid = QGridLayout()
+        grid.setSpacing(1)
+
+        amount_title = QLabel('Amount  ')
+        grid.addWidget(amount_title, 0, 0)
+        self.amount = QLineEdit(self)
+        grid.addWidget(self.amount, 0, 1)
+
+        description_title = QLabel('Description  ')
+        grid.addWidget(description_title, 1, 0)
+        self.description = QLineEdit(self)
+        grid.addWidget(self.description, 1, 1)
+
+        date_title = QLabel('Date (mm-dd-yyyy)  ')
+        grid.addWidget(date_title, 2, 0)
+        self.date = QLineEdit(self)
+        self.date.setPlaceholderText(str(datetime.date.today()))
+        grid.addWidget(self.date, 2, 1)
+
+        category_title = QLabel('Category  ')
+        grid.addWidget(category_title, 3, 0)
+        self.category = QComboBox(self)
+        self.category.addItem("food and drink")
+        self.category.addItem("entertainment")
+        self.category.addItem("self edification")
+        self.category.addItem("video game")
+        self.category.addItem("travel")
+        self.category.addItem("bills")
+        self.category.addItem("other")
+        grid.addWidget(self.category, 3, 1)
+
+        self.submit_button = QPushButton('Add Expense', self)
+        self.submit_button.clicked.connect(self.add_expense)
+        grid.addWidget(self.submit_button, 4, 0)
+
+        self.setLayout(grid)
+        self.setGeometry(300, 300, 800, 200)
+        self.setWindowTitle('Add Expense')
+        self.amount.setFocus()
+        self.show()
+
+    def add_expense(self):
+        amount = self.amount.text()
+        description = self.description.text()
+        if self.date.text() == "":
+            date = str(datetime.date.today())
+        else:
+            date = self.date.text()
+        category = str(self.category.currentText())
+
+        self.db.add_expense(amount, description, category, date)
+        #self.reset_add_expense_widgets()
+        # self.print_expense_data(amount, description, category, date)
+        # print(type(date))
+
+    def print_expense_data(self, amount, description, category, date):
+        print(f"amount: {amount}")
+        print(f"description: {description}")
+        print(f"date: {date}")
+        print(f"category: {category}")
+
+    def reset_add_expense_widgets(self):
+        """ Resets all widgets in AddExpensePopup window so another expense can be added."""
+        self.amount.setText("")
+        self.description.setText("")
+        self.date.setText(str(datetime.date.today()))
 
 
 class Example(QWidget):

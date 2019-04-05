@@ -10,7 +10,12 @@ class DbHandler:
 
     def add_expense(self, amount, description, category="other", date=datetime.date.today()):
         initial_balance = self.get_balance()
-        new_balance = initial_balance + amount
+
+        try:
+            new_balance = initial_balance + float(amount)
+        except ValueError:
+            new_balance = initial_balance
+
         # sql_line = f"INSERT INTO expenses ('amount', 'description', 'category', 'date', 'balance') VALUES \
         #             ({amount}, {description}, {category}, {date}, {new_balance})"
         sql_line = """INSERT INTO expenses(amount, description, category, date, balance) VALUES
@@ -68,5 +73,6 @@ class Test:
 if __name__ == "__main__":
     test = Test()
     test.test_current_balance()
-    #test.test_add_expense(-19.99, "Drinks with Kasia", "food", "2019-03-29")
+    #test.test_add_expense("", "", "food")
     test.test_recent_expenses(3)
+
