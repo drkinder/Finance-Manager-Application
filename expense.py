@@ -1,6 +1,7 @@
 
 
 class Expense:
+    """ Class for modeling expenses."""
 
     def __init__(self):
         self.db_id = 0
