@@ -3,16 +3,9 @@
 class Expense:
     """ Class for modeling expenses."""
 
-    def __init__(self):
-        self.db_id = 0
-        self.amount = 0
-        self.description = ""
-        self.category = ""
-        self.date = ""
-
-    def fill_data(self, db_id, amount, description, category, date):
-        self.db_id = db_id
-        self.amount = amount
-        self.description = description
-        self.category = category
-        self.date = date
+    def __init__(self, db_data_list):
+        self.db_id = db_data_list[0]
+        self.amount = db_data_list[1]
+        self.description = db_data_list[2]
+        self.category = db_data_list[3]
+        self.date = db_data_list[4]

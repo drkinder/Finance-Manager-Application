@@ -1,7 +1,7 @@
 import sys
 import datetime
 from PyQt5.QtWidgets import (QWidget, QLabel, QComboBox, QMainWindow, QLineEdit,
-                             QTextEdit, QGridLayout, QApplication, QPushButton)
+                             QListWidget, QGridLayout, QApplication, QPushButton)
 from db_handler import DbHandler
 
 
@@ -48,10 +48,10 @@ class AddExpensePopup(QWidget):
 
         self.submit_button = QPushButton('Add Expense', self)
         self.submit_button.clicked.connect(self.add_expense)
-        grid.addWidget(self.submit_button, 4, 0)
+        grid.addWidget(self.submit_button, 4, 2)
 
         self.setLayout(grid)
-        self.setGeometry(300, 300, 800, 200)
+        self.setGeometry(300, 300, 500, 200)
         self.setWindowTitle('Add Expense')
         self.amount.setFocus()
         self.show()
@@ -112,18 +112,24 @@ class Example(QWidget):
 
     def initUI(self):
 
-        balance = QLabel(f'Balance: {self.db.get_balance()}')
-        add_expense_btn = QPushButton('Add Expense', self)
-        add_expense_btn.clicked.connect(self.add_expense_window)
-
-        # titleEdit = QLineEdit()
-
         grid = QGridLayout()
         grid.setSpacing(1)
 
+        balance = QLabel(f'Balance: {self.db.get_balance()}')
         grid.addWidget(balance, 0, 0)
-        # grid.addWidget(titleEdit, 1, 1)
-        grid.addWidget(add_expense_btn, 1, 0)
+
+        add_expense_btn = QPushButton('Add Expense', self)
+        add_expense_btn.clicked.connect(self.add_expense_window)
+        grid.addWidget(add_expense_btn, 2, 0)
+
+        expense_list = QListWidget(self)
+        #for i in range(1, 6):
+        #    expense_list.addItem(str(i))
+        recent_expenses = self.db.get_recent_expenses(10)
+        for ex in recent_expenses:
+            expense_list.addItem(str(ex[1]))
+            #print(ex)
+        grid.addWidget(expense_list, 1, 0)
 
         self.setLayout(grid)
 
@@ -133,8 +139,8 @@ class Example(QWidget):
 
     def add_expense_window(self):
         self.add_expense_popup = AddExpensePopup()
-        self.add_expense_popup.setGeometry(300, 300, 400, 400)
-        self.add_expense_popup.show()
+        #self.add_expense_popup.setGeometry(300, 300, 400, 400)
+        #self.add_expense_popup.show()
 
 
 

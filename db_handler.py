@@ -27,7 +27,11 @@ class DbHandler:
         """ Returns a list with tupled expense rows as far back as defined in lookback"""
         # cursor = self.conn.execute(f'SELECT id, max(date) AS "MostRecent" FROM expenses')
         cursor = self.conn.execute('SELECT * FROM expenses ORDER BY date DESC, id DESC')
-        return cursor.fetchall()[:lookback]
+        try:
+            return cursor.fetchall()[:lookback]
+        except IndexError:
+            # If lookback > length of recorded expenses
+            return cursor.fetchall()
 
     def get_balance(self):
         """ Returns current balance from expenses table"""
