@@ -19,7 +19,7 @@ class Expense:
         return f"{amount}{description}{category}{date}"
 
     def format_list_wiget(self, data, max_length):
-        return f"{data}{''*(max_length-len(data))}"
+        return f"{data}{' '*(max_length-len(str(data)))}"
 
     def __str__(self):
         return f"{self.amount} -- {self.description}"

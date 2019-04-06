@@ -3,6 +3,7 @@ import datetime
 
 from expense import Expense
 
+
 class DbHandler:
 
     def __init__(self):
@@ -24,16 +25,6 @@ class DbHandler:
         self.conn.execute(sql_line, (amount, description, category, date, new_balance))
         self.commit_conn()
 
-    def get_recent_expenses1(self, lookback=5):
-        """ Returns a list with tupled expense rows as far back as defined in lookback"""
-        # cursor = self.conn.execute(f'SELECT id, max(date) AS "MostRecent" FROM expenses')
-        cursor = self.conn.execute('SELECT * FROM expenses ORDER BY date DESC, id DESC')
-        try:
-            return cursor.fetchall()[:lookback]
-        except IndexError:
-            # If lookback > length of recorded expenses
-            return cursor.fetchall()
-
     def get_recent_expenses(self, lookback=5):
         """ Returns a list of Expense Class instances for the past {lookback} expenses"""
         cursor = self.conn.execute('SELECT * FROM expenses ORDER BY date DESC, id DESC')
@@ -41,7 +32,7 @@ class DbHandler:
             return [Expense(e) for e in cursor.fetchall()[:lookback]]
         except IndexError:
             # If lookback > length of recorded expenses
-            return cursor.fetchall()
+            return [Expense(e) for e in cursor.fetchall()]
 
     def get_balance(self):
         """ Returns current balance from expenses table"""
@@ -84,7 +75,7 @@ class Test:
         self.db.add_expense(amount, description, category, date)
 
     def test_recent_expenses_creating_Expense_instances(self):
-        recent_expense = self.db.get_recent_expenses()
+        recent_expense = self.db.get_recent_expenses(25)
         for ex in recent_expense:
             print(ex)
 

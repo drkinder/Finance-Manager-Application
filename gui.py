@@ -102,7 +102,7 @@ class AddExpensePopup(QWidget):
         self.date.setText(str(datetime.date.today()))
 
 
-class Example(QWidget):
+class MainWindow(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -123,12 +123,10 @@ class Example(QWidget):
         grid.addWidget(add_expense_btn, 2, 0)
 
         expense_list = QListWidget(self)
-        #for i in range(1, 6):
-        #    expense_list.addItem(str(i))
         recent_expenses = self.db.get_recent_expenses(10)
         for ex in recent_expenses:
-            expense_list.addItem(str(ex[1]))
-            #print(ex)
+            expense_list.addItem(ex.list_widget_format())
+            print(ex.list_widget_format())
         grid.addWidget(expense_list, 1, 0)
 
         self.setLayout(grid)
@@ -147,5 +145,5 @@ class Example(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Example()
+    ex = MainWindow()
     sys.exit(app.exec_())
