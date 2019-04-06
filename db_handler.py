@@ -1,6 +1,7 @@
 import sqlite3
 import datetime
 
+from expense import Expense
 
 class DbHandler:
 
@@ -23,12 +24,21 @@ class DbHandler:
         self.conn.execute(sql_line, (amount, description, category, date, new_balance))
         self.commit_conn()
 
-    def get_recent_expenses(self, lookback=5):
+    def get_recent_expenses1(self, lookback=5):
         """ Returns a list with tupled expense rows as far back as defined in lookback"""
         # cursor = self.conn.execute(f'SELECT id, max(date) AS "MostRecent" FROM expenses')
         cursor = self.conn.execute('SELECT * FROM expenses ORDER BY date DESC, id DESC')
         try:
             return cursor.fetchall()[:lookback]
+        except IndexError:
+            # If lookback > length of recorded expenses
+            return cursor.fetchall()
+
+    def get_recent_expenses(self, lookback=5):
+        """ Returns a list of Expense Class instances for the past {lookback} expenses"""
+        cursor = self.conn.execute('SELECT * FROM expenses ORDER BY date DESC, id DESC')
+        try:
+            return [Expense(e) for e in cursor.fetchall()[:lookback]]
         except IndexError:
             # If lookback > length of recorded expenses
             return cursor.fetchall()
@@ -73,10 +83,16 @@ class Test:
     def test_add_expense(self, amount, description, category="other", date=datetime.date.today()):
         self.db.add_expense(amount, description, category, date)
 
+    def test_recent_expenses_creating_Expense_instances(self):
+        recent_expense = self.db.get_recent_expenses()
+        for ex in recent_expense:
+            print(ex)
+
 
 if __name__ == "__main__":
     test = Test()
     test.test_current_balance()
     #test.test_add_expense("", "", "food")
-    test.test_recent_expenses(3)
+    #test.test_recent_expenses(3)
+    test.test_recent_expenses_creating_Expense_instances()
 
