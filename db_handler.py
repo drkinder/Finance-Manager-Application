@@ -11,7 +11,7 @@ class DbHandler:
         self.conn = sqlite3.connect(self.db_filename)
 
     def get_all_expenses(self):
-        cursor = self.conn.execute("SELECT * FROM expenses")
+        cursor = self.conn.execute("SELECT * FROM expenses ORDER BY date DESC, id DESC")
         return cursor.fetchall()
 
     def add_expense(self, amount, description, category="other", date=datetime.date.today()):
