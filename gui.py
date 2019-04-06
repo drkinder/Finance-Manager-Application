@@ -1,7 +1,7 @@
 import sys
 import datetime
-from PyQt5.QtWidgets import (QWidget, QLabel, QComboBox, QMainWindow, QLineEdit,
-                             QListWidget, QGridLayout, QApplication, QPushButton)
+from PyQt5.QtWidgets import (QWidget, QLabel, QComboBox, QMainWindow, QLineEdit, QTableWidget,
+                             QTableWidgetItem, QGridLayout, QApplication, QPushButton)
 from db_handler import DbHandler
 
 
@@ -86,11 +86,13 @@ class AddExpensePopup(QWidget):
         try:
             float(amount)
         except ValueError:
+            print("INVALID AMOUNT")
             return False
 
         try:
-            datetime.datetime.strptime(date, '"%Y-%m-%d"')
+            datetime.datetime.strptime(date, "%Y-%m-%d")
         except ValueError:
+            print("INVALID DATE")
             return False
 
         return True
@@ -115,25 +117,53 @@ class MainWindow(QWidget):
         grid = QGridLayout()
         grid.setSpacing(1)
 
-        balance = QLabel(f'Balance: {self.db.get_balance()}')
-        grid.addWidget(balance, 0, 0)
+        self.balance = QLabel(f'Balance: {self.db.get_balance()}')
+        grid.addWidget(self.balance, 0, 0)
+
+        self.expense_table = QTableWidget(self)
+        self.expense_table.setHorizontalHeaderLabels(['Amount', 'Description', 'Category', 'Date', 'Balance'])
+        self.load_db_data()
+        grid.addWidget(self.expense_table, 1, 0)
+
+        refresh_expenses_btn = QPushButton('Refresh Expenses', self)
+        refresh_expenses_btn.clicked.connect(self.load_db_data)
+        grid.addWidget(refresh_expenses_btn, 2, 0)
 
         add_expense_btn = QPushButton('Add Expense', self)
         add_expense_btn.clicked.connect(self.add_expense_window)
-        grid.addWidget(add_expense_btn, 2, 0)
-
+        grid.addWidget(add_expense_btn, 3, 0)
+        """
         expense_list = QListWidget(self)
         recent_expenses = self.db.get_recent_expenses(10)
         for ex in recent_expenses:
             expense_list.addItem(ex.list_widget_format())
             print(ex.list_widget_format())
         grid.addWidget(expense_list, 1, 0)
+        """
 
         self.setLayout(grid)
 
-        self.setGeometry(300, 300, 800, 500)
+        self.setGeometry(300, 300, 600, 500)
         self.setWindowTitle('Review')
         self.show()
+
+    def load_db_data(self):
+
+        self.balance.setText(f'Balance: {self.db.get_balance()}')
+
+        self.expense_table.setRowCount(0)
+        self.expense_table.setRowCount(5)
+
+        self.expense_table.setColumnCount(0)
+        self.expense_table.setColumnCount(5)
+
+        expenses = self.db.get_all_expenses()
+
+        for row_idx, row_data in enumerate(expenses):
+            self.expense_table.insertRow(row_idx)
+            for column_idx, data in enumerate(row_data):
+                if column_idx > 0:
+                    self.expense_table.setItem(row_idx, column_idx-1, QTableWidgetItem(str(data)))
 
     def add_expense_window(self):
         self.add_expense_popup = AddExpensePopup()

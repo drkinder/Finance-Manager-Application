@@ -10,6 +10,10 @@ class DbHandler:
         self.db_filename = "db.db"
         self.conn = sqlite3.connect(self.db_filename)
 
+    def get_all_expenses(self):
+        cursor = self.conn.execute("SELECT * FROM expenses")
+        return cursor.fetchall()
+
     def add_expense(self, amount, description, category="other", date=datetime.date.today()):
         initial_balance = self.get_balance()
 
@@ -79,6 +83,9 @@ class Test:
         for ex in recent_expense:
             print(ex)
 
+    def test_get_all_expenses(self):
+        print(self.db.get_all_expenses())
+
 
 if __name__ == "__main__":
     test = Test()
@@ -86,4 +93,5 @@ if __name__ == "__main__":
     #test.test_add_expense("", "", "food")
     #test.test_recent_expenses(3)
     test.test_recent_expenses_creating_Expense_instances()
+    test.test_get_all_expenses()
 
