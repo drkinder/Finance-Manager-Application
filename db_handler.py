@@ -60,6 +60,9 @@ class DbHandler:
     def commit_conn(self):
         self.conn.commit()
 
+    def __exit(self, ctx_type, ctx_value, ctx_traceback):
+        self.close_conn()
+        print("CONNECTION CLOSED")
 
 class Test:
 

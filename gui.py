@@ -121,7 +121,6 @@ class MainWindow(QWidget):
         grid.addWidget(self.balance, 0, 0)
 
         self.expense_table = QTableWidget(self)
-        self.expense_table.setHorizontalHeaderLabels(['Amount', 'Description', 'Category', 'Date', 'Balance'])
         self.load_db_data()
         grid.addWidget(self.expense_table, 1, 0)
 
@@ -156,6 +155,8 @@ class MainWindow(QWidget):
 
         self.expense_table.setColumnCount(0)
         self.expense_table.setColumnCount(5)
+
+        self.expense_table.setHorizontalHeaderLabels(['Amount', 'Description', 'Category', 'Date', 'Balance'])
 
         expenses = self.db.get_all_expenses()
 
