@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bd3a0905-50c9-4a31-9de3-da282d28bcec" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.db" beforeDir="false" afterPath="$PROJECT_DIR$/db.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expense.py" beforeDir="false" afterPath="$PROJECT_DIR$/expense.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,8 +18,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-85">
-              <caret line="137" column="56" lean-forward="true" selection-start-line="137" selection-start-column="56" selection-end-line="137" selection-end-column="56" />
+            <state relative-caret-position="-1028">
+              <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -30,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/db_handler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="62" column="21" selection-start-line="62" selection-start-column="21" selection-end-line="62" selection-end-column="21" />
+            <state relative-caret-position="238">
+              <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -42,8 +42,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/expense.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+            <state relative-caret-position="306">
+              <caret line="18" column="55" lean-forward="true" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -52,7 +52,7 @@
         <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+              <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -82,8 +82,8 @@
         <option value="$PROJECT_DIR$/play_gui.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
-        <option value="$PROJECT_DIR$/expense.py" />
         <option value="$PROJECT_DIR$/gui.py" />
+        <option value="$PROJECT_DIR$/expense.py" />
         <option value="$PROJECT_DIR$/db_handler.py" />
       </list>
     </option>
@@ -337,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1554593175992</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Column names were deleted in gui when refreshed button was pressed. Fixed.&#10;&#10;Added self.conn.close() on exit in db_handler class.">
+      <created>1554601003896</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1554601003896</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView">
@@ -436,7 +443,8 @@
     <MESSAGE value="minor tweak" />
     <MESSAGE value="Added expense_table QTableWidget for displaying database expenses.&#10;&#10;Added refresh button to update QTableWidget and Balance when new expense is added." />
     <MESSAGE value="Changed method get_all_expenses() to request SQL data in DESC order by&#10;date, by id" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed method get_all_expenses() to request SQL data in DESC order by&#10;date, by id" />
+    <MESSAGE value="Column names were deleted in gui when refreshed button was pressed. Fixed.&#10;&#10;Added self.conn.close() on exit in db_handler class." />
+    <option name="LAST_COMMIT_MESSAGE" value="Column names were deleted in gui when refreshed button was pressed. Fixed.&#10;&#10;Added self.conn.close() on exit in db_handler class." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/db.db">
@@ -450,24 +458,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expense.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="4" column="9" lean-forward="true" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expense.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="55" lean-forward="true" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="137" column="56" lean-forward="true" selection-start-line="137" selection-start-column="56" selection-end-line="137" selection-end-column="56" />
+        <state relative-caret-position="-1028">
+          <caret line="69" column="36" selection-start-line="69" selection-start-column="36" selection-end-line="69" selection-end-column="36" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -476,8 +484,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/db_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="62" column="21" selection-start-line="62" selection-start-column="21" selection-end-line="62" selection-end-column="21" />
+        <state relative-caret-position="238">
+          <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

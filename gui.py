@@ -68,8 +68,6 @@ class AddExpensePopup(QWidget):
         else:
             # ADD POPUP WARNING
             print("INVALID ENTRIES")
-        # self.print_expense_data(amount, description, category, date)
-        # print(type(date))
 
     def get_date(self):
         if self.date.text() == "":
@@ -131,14 +129,6 @@ class MainWindow(QWidget):
         add_expense_btn = QPushButton('Add Expense', self)
         add_expense_btn.clicked.connect(self.add_expense_window)
         grid.addWidget(add_expense_btn, 3, 0)
-        """
-        expense_list = QListWidget(self)
-        recent_expenses = self.db.get_recent_expenses(10)
-        for ex in recent_expenses:
-            expense_list.addItem(ex.list_widget_format())
-            print(ex.list_widget_format())
-        grid.addWidget(expense_list, 1, 0)
-        """
 
         self.setLayout(grid)
 
@@ -168,10 +158,6 @@ class MainWindow(QWidget):
 
     def add_expense_window(self):
         self.add_expense_popup = AddExpensePopup()
-        #self.add_expense_popup.setGeometry(300, 300, 400, 400)
-        #self.add_expense_popup.show()
-
-
 
 
 if __name__ == '__main__':

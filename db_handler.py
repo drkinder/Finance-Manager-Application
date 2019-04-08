@@ -22,8 +22,6 @@ class DbHandler:
         except ValueError:
             new_balance = initial_balance
 
-        # sql_line = f"INSERT INTO expenses ('amount', 'description', 'category', 'date', 'balance') VALUES \
-        #             ({amount}, {description}, {category}, {date}, {new_balance})"
         sql_line = """INSERT INTO expenses(amount, description, category, date, balance) VALUES
                       (?, ?, ?, ?, ?)"""
         self.conn.execute(sql_line, (amount, description, category, date, new_balance))
@@ -60,7 +58,7 @@ class DbHandler:
     def commit_conn(self):
         self.conn.commit()
 
-    def __exit(self, ctx_type, ctx_value, ctx_traceback):
+    def __exit__(self, ctx_type, ctx_value, ctx_traceback):
         self.close_conn()
         print("CONNECTION CLOSED")
 
@@ -74,7 +72,6 @@ class Test:
 
     def test_recent_expenses(self, lookback=5):
         recent_expenses = self.db.get_recent_expenses(lookback)
-        #print(recent_expenses)
         for ex in recent_expenses:
             print(f"{ex[2]}: {ex[1]} -- {ex[3]} on {ex[4]}")
 
